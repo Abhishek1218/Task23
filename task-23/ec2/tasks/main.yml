@@ -1,0 +1,23 @@
+---
+# tasks file for ec2
+- name: launching ec2 instances 
+  ec2:  
+    instance_type: t2.micro 
+    image: ami-0ad704c126371a549
+    wait: yes 
+    group_id: sg-06880ef7aaff7efe6
+    count: 1
+    region: ap-south-1
+    instance_tags:
+           Name: "{{ item }}"
+    vpc_subnet_id: subnet-b86368d0
+    state: present   
+    assign_public_ip: yes
+    key_name: abhi
+    aws_access_key: "{{ accessKey }}"
+    aws_secret_key: "{{ secretKey }}"
+    wait_timeout: 600 
+  loop:
+          - Master
+          - Worker1
+          - Worker2
